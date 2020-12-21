@@ -2,6 +2,7 @@
 
 read -p "Enter external server URL without the port (default is set to http://rundeck.lan): " external_server_url
 read -p "Enter external server port (default is set to 80): " external_server_port
+read -p "Enter external server ssl port (default is set to 443): " external_server_ssl_port
 read -p "Enter admin password (default is set to: \"rundeck\"): " rundeck_admin_password
 
 
@@ -49,6 +50,17 @@ else
 	sed -i -e 's,'"$old"','"$new"',g' docker-image-rundeck/.env
 fi
 
+if test -z "$external_server_ssl_port" 
+then
+      echo ""
+else
+	#echo " is NOT empty"
+	old='EXTERNAL_SERVER_SSL_PORT=443'
+	new="EXTERNAL_SERVER_SSL_PORT=$external_server_ssl_port"
+
+	sed -i -e 's,'"$old"','"$new"',g' docker-image-rundeck/.env
+fi
+
 if test -z "$rundeck_admin_password" 
 then
       echo ""
@@ -59,5 +71,8 @@ else
 
 	sed -i -e 's,'"$old"','"$new"',g' docker-image-rundeck/.env
 fi
+
+#ssl copy sample ssl
+cp -R docker/sample-cert docker-image-rundeck/nginx/cert
 
 cd docker-image-rundeck; docker-compose up -d
