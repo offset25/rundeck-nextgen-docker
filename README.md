@@ -27,3 +27,11 @@ docker-compose restart
 
 to stop run inside the docker-image-rundeck folder:
 docker-compose down
+
+
+SSL Support
+I added some ssl support. You can copy your certificate to docker-image-rundeck/nginx/cert
+and overwrite cert1.pem and privkey1.pem
+you then need to restart your docker setup
+docker-compose restart
+make sure to specify https in your external_server_url
