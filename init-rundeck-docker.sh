@@ -1,6 +1,7 @@
 #!/bin/bash
 
-read -p "Enter external server URL (e.g. http://rundeck.lan): " external_server_url
+read -p "Enter external server URL without the port (e.g. http://rundeck.lan): " external_server_url
+read -p "Enter external server port (default is set to 80): " external_server_port
 
 
 # if apt installed
@@ -32,6 +33,17 @@ else
 	echo " is NOT empty"
 	old='EXTERNAL_SERVER_URL=http://rundeck.lan'
 	new="EXTERNAL_SERVER_URL=$external_server_url"
+
+	sed -i -e 's,'"$old"','"$new"',g' docker-image-rundeck/.env
+fi
+
+if test -z "$external_server_port" 
+then
+      echo ""
+else
+	echo " is NOT empty"
+	old='EXTERNAL_SERVER_PORT=80'
+	new="EXTERNAL_SERVER_PORT=$external_server_port"
 
 	sed -i -e 's,'"$old"','"$new"',g' docker-image-rundeck/.env
 fi

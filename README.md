@@ -14,12 +14,10 @@ sh init-rundeck-docker.sh
 
 will setup docker and run docker-compose
 
-you can access via http://<hostname>/
+you can access via http://hostname:port/
 
 it takes a few minutes for it to start
 
-
-for some reason rundeck will only run on standard ports. The redirects it does for login doesn't include port if using non standard port.
 
 to start run inside the docker-image-rundeck folder:
 docker-compose up -d
