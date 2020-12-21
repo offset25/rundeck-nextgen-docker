@@ -35,3 +35,5 @@ and overwrite cert1.pem and privkey1.pem
 you then need to restart your docker setup
 docker-compose restart
 make sure to specify https in your external_server_url
+
+rundeck doesn't seem to fully support ssl on non-standard ports. May need to add http to https redirect and further ssl support
